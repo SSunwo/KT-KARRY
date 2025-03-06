@@ -24,18 +24,25 @@ import lombok.Setter;
 @Setter
 @Getter
 @Builder
-@Table(name = "registrations")
-public class Registration {
-
+@Table(name="user")
+public class User {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer regist_num;
+    private Integer user_num;
 
-    private String regist_name;
-    private String regist_content;
+    private String user_id;
+    private String user_pw;
+    private String user_name;
+    private String role;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false, updatable = false)
-    private Timestamp create_at;
+    private Timestamp created_at;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "modified_at", nullable = false, updatable = true)
+    private Timestamp modified_at;
 }
