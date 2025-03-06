@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import SignIn from '@/common/SignIn.vue'
+import SignUp from '@/common/SignUp.vue'
 
 // TODO: 없애기
 import MainPage from '@/views/MainPage.vue'
@@ -23,6 +24,11 @@ const router = createRouter({
       path: '/signin',
       name: 'signin',
       component: SignIn,
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: SignUp,
     },
     {
       path: '/shippment',

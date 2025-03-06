@@ -18,6 +18,9 @@ import { RouterLink, RouterView } from 'vue-router'
           <RouterLink to="/shippment" class="text-sm/6 font-semibold text-gray-900"
             >Main가자</RouterLink
           >
+          <RouterLink to="/signup" class="text-sm/6 font-semibold text-gray-900"
+            >Sign Up</RouterLink
+          >
           <RouterLink to="/signin" class="text-sm/6 font-semibold text-gray-900"
             >Sign in</RouterLink
           >

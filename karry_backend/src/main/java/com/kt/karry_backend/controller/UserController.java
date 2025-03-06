@@ -34,13 +34,22 @@ public class UserController {
         return userService.findAll();
     }
 
-    @PostMapping("/users")
-    public ResponseEntity<?> postUser(@RequestBody User resource) throws URISyntaxException {
+    // test용
+    // @PostMapping("/users")
+    // public ResponseEntity<?> postUser(@RequestBody User resource) throws URISyntaxException {
     
-        User user = userService.addUser(resource);
+    //     User user = userService.registerUser(resource);
 
-        URI location = URI.create("/users/" + user.getUserNum());
-        return ResponseEntity.created(location).body("creation complete");
+    //     URI location = URI.create("/users/" + user.getUserNum());
+    //     return ResponseEntity.created(location).body("creation complete");
+    // }
+
+    // 회원가입 api
+    @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(@RequestBody User user) throws URISyntaxException {
+    
+        User newUser = userService.registerUser(user);
+        return ResponseEntity.ok(newUser);
     }
 
     // 로그인 api
@@ -74,15 +83,3 @@ public class UserController {
     }
 
 }
-// // 2️⃣ 비밀번호 검증 (평문 비교 OR 해싱된 비밀번호 비교)
-//         if (!passwordEncoder.matches(userPw, user.getUser_pw())) {
-//             return ResponseEntity.status(401).body(Map.of("message", "Invalid credentials"));
-//         }
-
-//         // 3️⃣ 로그인 성공 → 응답 반환
-//         Map<String, Object> response = new HashMap<>();
-//         response.put("message", "Login successful");
-//         response.put("user_id", user.getUserId());
-//         response.put("role", user.getRole());
-
-//         return ResponseEntity.ok(response);
