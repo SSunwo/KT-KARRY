@@ -1,28 +1,20 @@
-<template>
-  <PageHeader />
-  <router-view />
-  <PageFooter />
-</template>
-
-<script>
-import PageHeader from "@/components/PageHeader";
-import PageFooter from "@/components/PageFooter";
-
-export default {
-  components: {
-    PageHeader,
-    PageFooter,
-  },
-};
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<template>
+  <header>
+    <div class="wrapper">
+      <HelloWorld msg="You did it!" />
+
+      <nav>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+      </nav>
+    </div>
+  </header>
+
+  <RouterView />
+</template>
+
+<style scoped></style>
