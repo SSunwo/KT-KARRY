@@ -1,6 +1,7 @@
 package com.kt.karry_backend.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService  {
     
     @Autowired
     private UserRepository userRepository;
@@ -21,7 +22,12 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public Optional<User> findByUserId(String userId) {
+        return userRepository.findByUserId(userId);
+    }
+
     public User addUser(User user) {
         return userRepository.save(user);
     }
+
 }

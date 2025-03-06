@@ -15,12 +15,12 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Setter
 @Getter
 @Builder
@@ -29,20 +29,25 @@ public class User {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer user_num;
+    @Column(name="user_num")
+    private Integer userNum;
 
-    private String user_id;
-    private String user_pw;
-    private String user_name;
+    @Column(name="user_id")
+    private String userId;
+    @Column(name="user_pw")
+    private String userPw;
+    @Column(name="user_name")
+    private String userName;
+    @Column(name="role")
     private String role;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false, updatable = false)
-    private Timestamp created_at;
+    private Timestamp createdAt;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modified_at", nullable = false, updatable = true)
-    private Timestamp modified_at;
+    private Timestamp modifiedAt;
 }
