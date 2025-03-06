@@ -21,7 +21,6 @@ import com.kt.karry_backend.service.UserService;
 
 
 @RestController
-@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class UserController {
     
     @Autowired
