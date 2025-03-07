@@ -1,5 +1,6 @@
 <script>
 import registAPI from '@/service/registAPI'
+import ShipmentTable from '@/components/ShipmentsTable.vue'
 
 export default {
   data() {
@@ -7,6 +8,10 @@ export default {
       shipments: [],
     }
   },
+  components: {
+    ShipmentTable,
+  },
+
   methods: {
     async findAllShipmentsList() {
       try {
@@ -14,7 +19,7 @@ export default {
         console.log('response data : ', res.data)
         // 응답 구조 확인 후 list 또는 data로 할당
         this.shipments = res.data.map((shipment) => ({
-          id: shipment.shipmentId, // 배송 ID
+          shipmentId: shipment.shipmentId, // 배송 ID
           userNum: shipment.userNum, // 사용자 번호
           origin: shipment.origin, // 출발지
           destination: shipment.destination, // 도착지
@@ -38,6 +43,10 @@ export default {
 </script>
 
 <template>
+  <ShipmentTable />
+</template>
+
+<!--  예전...
   <div class="p-4">
     <h2 class="text-lg font-semibold">Shipment List</h2>
     <ul class="mt-4 space-y-2">
@@ -45,5 +54,4 @@ export default {
         {{ shipment.userNum }} - {{ shipment.origin }} → {{ shipment.destination }}
       </li>
     </ul>
-  </div>
-</template>
+  </div> -->
