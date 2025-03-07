@@ -48,7 +48,14 @@ public class UserController {
     public ResponseEntity<?> registerUser(@RequestBody User user) throws URISyntaxException {
     
         User newUser = userService.registerUser(user);
-        return ResponseEntity.ok(newUser);
+        
+        // 회원가입 성공하면
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "SignUp successful");
+        response.put("user_num", newUser.getUserNum());
+        response.put("user_id", newUser.getUserId());
+
+        return ResponseEntity.ok(response);
     }
 
     // 로그인 api

@@ -20,8 +20,13 @@ const signupUser = (user_id, user_pw, user_name, role) => {
 export default {
   async doSignup(user_id, user_pw, user_name, role) {
     try {
-      const signupPromise = signupUser(user_id, user_pw, user_name, role)
-      const [signupResponse] = await Promise.all([signupPromise])
+      const getsignupPromise = signupUser(user_id, user_pw, user_name, role)
+      const [signupResponse] = await Promise.all([getsignupPromise])
+      if (signupResponse.data.length === 0) {
+        return 'notFound'
+      } else {
+        return signupResponse
+      }
     } catch (err) {
       console.error(err)
       throw new Error('회원가입 실패')

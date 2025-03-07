@@ -15,9 +15,10 @@ import { RouterLink, RouterView } from 'vue-router'
         <div class="hidden lg:flex lg:gap-x-12">
           <RouterLink to="/" class="text-sm/6 font-semibold text-gray-900">Home</RouterLink>
           <RouterLink to="/about" class="text-sm/6 font-semibold text-gray-900">About</RouterLink>
-          <RouterLink to="/shippment" class="text-sm/6 font-semibold text-gray-900"
-            >Main가자</RouterLink
+          <RouterLink to="/shipment" class="text-sm/6 font-semibold text-gray-900"
+            >ShipmentList</RouterLink
           >
+          <RouterLink to="/regist" class="text-sm/6 font-semibold text-gray-900">Regist</RouterLink>
           <RouterLink to="/signup" class="text-sm/6 font-semibold text-gray-900"
             >Sign Up</RouterLink
           >

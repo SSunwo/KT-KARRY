@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import SignIn from '@/common/SignIn.vue'
 import SignUp from '@/common/SignUp.vue'
+import Register from '@/views/ShipmentRegister.vue'
 
 // TODO: 없애기
 import MainPage from '@/views/MainPage.vue'
@@ -31,9 +32,14 @@ const router = createRouter({
       component: SignUp,
     },
     {
-      path: '/shippment',
-      name: 'shippment',
+      path: '/shipment',
+      name: 'shipment',
       component: MainPage,
+    },
+    {
+      path: '/regist',
+      name: 'regist',
+      component: Register,
     },
   ],
 })

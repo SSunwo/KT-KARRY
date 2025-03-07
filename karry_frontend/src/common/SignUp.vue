@@ -65,7 +65,12 @@ export default {
         <label class="block text-sm font-medium">Role</label>
         <input v-model="role" type="text" required class="w-full p-2 border rounded" />
       </div>
-      <button type="submit" class="w-full p-2 bg-blue-500 text-white rounded">Sign Up</button>
+      <button
+        type="submit"
+        class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      >
+        Sign Up
+      </button>
     </form>
   </div>
 </template>
