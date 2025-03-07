@@ -27,11 +27,12 @@ import lombok.Setter;
 @Table(name="user")
 public class User {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="user_num")
-    private Integer userNum;
+    // @Id
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @Column(name="user_num")
+    // private Integer userNum;
 
+    @Id
     @Column(name="user_id")
     private String userId;
     @Column(name="user_pw")

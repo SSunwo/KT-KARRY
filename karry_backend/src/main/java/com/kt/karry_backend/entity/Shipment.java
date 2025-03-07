@@ -33,8 +33,9 @@ public class Shipment {
     @Column(name="shipment_id")
     private Integer shipmentId;
 
-    @Column(name="user_num")
-    private String userNum;
+    @Column(name="user_id")
+    private String userId;
+
     @Column(name="origin")
     private String origin;
     @Column(name="destination")

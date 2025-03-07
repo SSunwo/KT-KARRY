@@ -45,13 +45,3 @@ export default {
 <template>
   <ShipmentTable />
 </template>
-
-<!--  예전...
-  <div class="p-4">
-    <h2 class="text-lg font-semibold">Shipment List</h2>
-    <ul class="mt-4 space-y-2">
-      <li v-for="(shipment, index) in shipments" :key="index" class="p-2 border rounded">
-        {{ shipment.userNum }} - {{ shipment.origin }} → {{ shipment.destination }}
-      </li>
-    </ul>
-  </div> -->

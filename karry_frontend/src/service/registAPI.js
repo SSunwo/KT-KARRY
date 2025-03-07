@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-const registShipment = (user_num, origin, destination, weight, size, price, status) => {
+const registShipment = (user_id, origin, destination, weight, size, price, status) => {
   const reqData = {
-    userNum: user_num,
+    userId: user_id,
     origin: origin,
     destination: destination,
     weight: weight,
@@ -31,10 +31,10 @@ const getShipments = () => {
 }
 
 export default {
-  async doRegist(user_num, origin, destination, weight, size, price, status) {
+  async doRegist(user_id, origin, destination, weight, size, price, status) {
     try {
       const registPromise = registShipment(
-        user_num,
+        user_id,
         origin,
         destination,
         weight,

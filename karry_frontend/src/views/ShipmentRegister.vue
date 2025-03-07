@@ -1,22 +1,29 @@
 <script>
+import { mapGetters } from 'vuex'
 import registAPI from '@/service/registAPI'
 
 export default {
   data() {
     return {
-      user_num: '',
       origin: '',
       destination: '',
       weight: '',
       size: '',
       price: '',
-      status: '',
+      status: 'Pending',
     }
+  },
+  computed: {
+    ...mapGetters(['getUserId']), // Vuex에서 현재 로그인된 사용자 ID 가져오기
+    user_id() {
+      console.log('Vuex에서 가져온 user_id:', this.getUserId) // ✅ 콘솔에서 확인
+      return this.getUserId || '' // 로그인 상태에서 user_id 자동 설정
+    },
   },
   methods: {
     async fnRegist() {
       if (
-        !this.user_num ||
+        !this.user_id ||
         !this.origin ||
         !this.destination ||
         !this.weight ||
@@ -30,7 +37,7 @@ export default {
 
       try {
         let registResult = await registAPI.doRegist(
-          this.user_num,
+          this.user_id,
           this.origin,
           this.destination,
           this.weight,
@@ -58,10 +65,6 @@ export default {
     <h2 class="text-xl font-semibold">Shipment Registration</h2>
     <form class="mt-6 space-y-4" @submit.prevent="fnRegist">
       <div>
-        <label class="block text-sm font-medium">User Number</label>
-        <input v-model="user_num" type="text" required class="w-full p-2 border rounded" />
-      </div>
-      <div>
         <label class="block text-sm font-medium">Origin</label>
         <input v-model="origin" type="text" required class="w-full p-2 border rounded" />
       </div>
@@ -69,6 +72,7 @@ export default {
         <label class="block text-sm font-medium">Destination</label>
         <input v-model="destination" type="text" required class="w-full p-2 border rounded" />
       </div>
+
       <div>
         <label class="block text-sm font-medium">Weight</label>
         <input v-model="weight" type="number" required class="w-full p-2 border rounded" />
@@ -81,10 +85,10 @@ export default {
         <label class="block text-sm font-medium">Price</label>
         <input v-model="price" type="number" required class="w-full p-2 border rounded" />
       </div>
-      <div>
+      <!-- <div>
         <label class="block text-sm font-medium">Status</label>
         <input v-model="status" type="text" required class="w-full p-2 border rounded" />
-      </div>
+      </div> -->
       <button
         type="submit"
         class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

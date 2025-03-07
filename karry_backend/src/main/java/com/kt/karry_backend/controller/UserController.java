@@ -1,6 +1,5 @@
 package com.kt.karry_backend.controller;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
@@ -52,7 +51,6 @@ public class UserController {
         // 회원가입 성공하면
         Map<String, Object> response = new HashMap<>();
         response.put("message", "SignUp successful");
-        response.put("user_num", newUser.getUserNum());
         response.put("user_id", newUser.getUserId());
 
         return ResponseEntity.ok(response);

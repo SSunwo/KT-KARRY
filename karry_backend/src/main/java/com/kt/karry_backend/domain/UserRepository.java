@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kt.karry_backend.entity.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, String> {
 
     List<User> findAll();
     Optional<User> findByUserId(String userId);
