@@ -2,8 +2,6 @@ package com.kt.karry_backend.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.List;
 
 
