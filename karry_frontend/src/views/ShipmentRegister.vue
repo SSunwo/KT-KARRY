@@ -1,6 +1,8 @@
 <script>
 import { mapGetters } from 'vuex'
 import registAPI from '@/service/registAPI'
+// import SearchAddress from '@/common/SearchAddress.vue'
+import DaumPostcode from '@/components/DaumPostcode.vue'
 
 export default {
   data() {
@@ -13,10 +15,11 @@ export default {
       status: 'Pending',
     }
   },
+  components: { DaumPostcode },
   computed: {
     ...mapGetters(['getUserId']), // Vuex에서 현재 로그인된 사용자 ID 가져오기
     user_id() {
-      console.log('Vuex에서 가져온 user_id:', this.getUserId) // ✅ 콘솔에서 확인
+      console.log('Vuex에서 가져온 user_id:', this.getUserId) // 콘솔에서 확인
       return this.getUserId || '' // 로그인 상태에서 user_id 자동 설정
     },
   },
@@ -66,11 +69,13 @@ export default {
     <form class="mt-6 space-y-4" @submit.prevent="fnRegist">
       <div>
         <label class="block text-sm font-medium">Origin</label>
-        <input v-model="origin" type="text" required class="w-full p-2 border rounded" />
+        <!-- <input v-model="origin" type="text" required class="w-full p-2 border rounded" /> -->
+        <DaumPostcode v-model="origin" />
       </div>
       <div>
         <label class="block text-sm font-medium">Destination</label>
-        <input v-model="destination" type="text" required class="w-full p-2 border rounded" />
+        <!-- <input v-model="destination" type="text" required class="w-full p-2 border rounded" /> -->
+        <DaumPostcode v-model="destination" />
       </div>
 
       <div>
