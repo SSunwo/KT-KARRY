@@ -35,10 +35,10 @@ public class ShipmentController {
     // shipment_id로 조회
     @GetMapping("/shipment/{id}")
     public ResponseEntity<?> getShipment(@PathVariable Integer id) {
-    Shipment shipment = shipmentService.findByShipmentId(id)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Shipment not found"));
-    return ResponseEntity.ok(shipment);
-}
+        Shipment shipment = shipmentService.findByShipmentId(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Shipment not found"));
+        return ResponseEntity.ok(shipment);
+    }
 
     // shipment 등록하기
     @PostMapping("/shipment")

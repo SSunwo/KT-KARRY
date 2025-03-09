@@ -1,6 +1,7 @@
 package com.kt.karry_backend.service;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,5 +57,7 @@ public class PriceLogService {
         System.out.println("PriceLog 저장 완료: " + priceLog);
     }
 
-
+    public Optional<PriceLog> getPriceLogByShipmentId(Long shipmentId) {
+        return priceLogRepository.findByShipmentId(shipmentId);
+    }
 }

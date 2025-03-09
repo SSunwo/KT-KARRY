@@ -5,6 +5,8 @@ export default {
   data() {
     return {
       shipments: [],
+      selectedPriceLog: null,
+      isModalOpen: false,
     }
   },
   methods: {
@@ -27,6 +29,33 @@ export default {
       } catch (error) {
         console.error('배차 목록 불러오기 실패:', error)
       }
+    },
+
+    // PriceLog 정보 불러오기
+    async fetchPriceLog(shipmentId) {
+      try {
+        console.log(`🔍 PriceLog 요청: shipmentId=${shipmentId}`)
+
+        const res = await registAPI.getPricelog(shipmentId)
+
+        if (!res) {
+          console.error('PriceLog 응답이 없습니다!')
+          alert('해당 배송 요청의 PriceLog 데이터가 존재하지 않습니다.')
+          return
+        }
+
+        console.log('PriceLog 데이터:', res)
+        this.selectedPriceLog = res
+        this.isModalOpen = true // 모달 열기
+      } catch (error) {
+        console.error('PriceLog 불러오기 실패:', error)
+        alert('가격 정보를 불러오는 데 실패했습니다.')
+      }
+    },
+
+    closeModal() {
+      this.isModalOpen = false
+      this.selectedPriceLog = null
     },
   },
 
@@ -80,6 +109,7 @@ export default {
           >
             {{ key }}
           </th>
+          <th class="px-6 py-3">수락</th>
         </tr>
       </thead>
       <tbody>
@@ -91,8 +121,34 @@ export default {
           >
             {{ value }}
           </td>
+          <td class="px-6 py-4">
+            <button
+              @click="fetchPriceLog(shipment.shipmentId)"
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              수락
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <!-- 가격 정보 모달 -->
+  <div
+    v-if="isModalOpen"
+    class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50"
+  >
+    <div class="bg-white p-6 rounded shadow-lg">
+      <h2 class="text-lg font-bold">Price Log 정보</h2>
+      <p><strong>출발지:</strong> {{ selectedPriceLog?.origin }}</p>
+      <p><strong>도착지:</strong> {{ selectedPriceLog?.destination }}</p>
+      <p><strong>거리:</strong> {{ selectedPriceLog?.distance }} km</p>
+      <p><strong>기본 요금:</strong> {{ selectedPriceLog?.simplePrice }} 원</p>
+      <p><strong>계산된 요금:</strong> {{ selectedPriceLog?.calculatedPrice }} 원</p>
+      <button @click="closeModal()" class="mt-4 px-4 py-2 bg-red-500 text-white rounded">
+        닫기
+      </button>
+    </div>
   </div>
 </template>

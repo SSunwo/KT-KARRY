@@ -6,6 +6,8 @@ export default {
   data() {
     return {
       shipments: [],
+      selectedPriceLog: null, // 선택된 PriceLog 정보
+      isModalOpen: false, // 모달 상태
     }
   },
   components: {
@@ -32,6 +34,23 @@ export default {
       } catch (error) {
         console.error('배차 목록 불러오기 실패:', error)
       }
+    },
+
+    // PriceLog 정보 불러오기
+    async fetchPriceLog(shipmentId) {
+      try {
+        const res = await registAPI.getPriceLog(shipmentId)
+        console.log('💰 PriceLog 데이터:', res.data)
+        this.selectedPriceLog = res.data
+        this.isModalOpen = true // 모달 열기
+      } catch (error) {
+        console.error('PriceLog 불러오기 실패:', error)
+      }
+    },
+
+    closeModal() {
+      this.isModalOpen = false
+      this.selectedPriceLog = null
     },
   },
 
