@@ -1,4 +1,4 @@
-package com.kt.karry_backend;
+package com.kt.karry_backend.util;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

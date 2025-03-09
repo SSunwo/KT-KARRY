@@ -42,6 +42,18 @@ public class PriceLog {
     @Column(name = "destination", nullable = false, length = 255)
     private String destination;
 
+    @Column(name = "origin_x", precision = 15, scale = 10) // 좌표 추가
+    private BigDecimal originX;
+
+    @Column(name = "origin_y", precision = 15, scale = 10)
+    private BigDecimal originY;
+
+    @Column(name = "destination_x", precision = 15, scale = 10)
+    private BigDecimal destinationX;
+
+    @Column(name = "destination_y", precision = 15, scale = 10)
+    private BigDecimal destinationY;
+
     @Column(name = "distance", precision = 10, scale = 2)
     private BigDecimal distance;
 
