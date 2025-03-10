@@ -9,6 +9,7 @@ const store = useStore()
 
 // Vuex의 상태를 computed로 가져오기
 const isAuth = computed(() => store.getters.getIsAuth)
+const loggedInUserId = computed(() => store.getters.getUserId) // 로그인된 유저 ID 가져오기
 </script>
 
 <template>
@@ -38,6 +39,10 @@ const isAuth = computed(() => store.getters.getIsAuth)
         >Sign in</RouterLink
       >
       <SignOutButton />
+      <!-- 로그인된 유저 정보 표시 -->
+      <div v-if="isAuth" class="text-sm/6 font-semibold text-gray-900">
+        <span class="text-blue-600">👤 {{ loggedInUserId }}</span>
+      </div>
     </div>
   </nav>
 </template>
