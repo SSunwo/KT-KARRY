@@ -3,12 +3,11 @@ import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import SignIn from '@/common/SignIn.vue'
 import SignUp from '@/common/SignUp.vue'
-import Register from '@/views/ShipmentRegister.vue'
 import Matching from '@/views/MatchingView.vue'
 import store from '@/vuex/store'
 
 // TODO: 없애기
-import MainPage from '@/views/MainPage.vue'
+import MainPage from '@/views/ShipmentListView.vue'
 
 const routes = [
   {
@@ -40,10 +39,9 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: '/regist',
-    name: 'regist',
-    component: Register,
-    meta: { requiresAuth: true },
+    path: '/shipment/register',
+    name: 'ShipmentRegister',
+    component: () => import('@/views/RegistView.vue'),
   },
   {
     path: '/matching',

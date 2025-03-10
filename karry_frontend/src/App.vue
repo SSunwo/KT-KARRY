@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import Navbar from './components/Navbar.vue'
 </script>
 
@@ -16,4 +16,18 @@ import Navbar from './components/Navbar.vue'
   </div>
 </template>
 
-<style scoped></style>
+<style scoped></style> -->
+
+<template>
+  <AppLayout />
+</template>
+
+<script>
+import AppLayout from './layouts/AppLayout.vue'
+
+export default {
+  components: {
+    AppLayout,
+  },
+}
+</script>
