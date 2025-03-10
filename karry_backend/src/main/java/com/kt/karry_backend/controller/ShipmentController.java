@@ -77,4 +77,6 @@ public class ShipmentController {
             return ResponseEntity.badRequest().body("Shipment 상태 업데이트 실패!");
         }
     }
+
+
 }

@@ -1,6 +1,6 @@
 export default {
   getUserId: (state) => {
-    console.log('Vuex userId:', state.userId) // ✅ Vuex에서 값이 제대로 있는지 확인
+    console.log('Vuex userId:', state.userId) // Vuex에서 값이 제대로 있는지 확인
     return state.userId
   },
   getErrorState: (state) => state.errorState,

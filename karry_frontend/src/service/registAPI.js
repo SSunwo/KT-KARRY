@@ -47,6 +47,7 @@ const assignMatching = (shipmentId) => {
   })
 }
 
+// Shipment 상태 변경 API
 const patchShipmentStatus = (shipmentId, newStatus) => {
   console.log(`🔄 PATCH 요청: shipmentId=${shipmentId}, newStatus=${newStatus}`) // DEBUG 추가
 
@@ -56,6 +57,15 @@ const patchShipmentStatus = (shipmentId, newStatus) => {
     {
       headers: { 'Content-Type': 'application/json' },
     },
+  )
+}
+
+// Matching 상태 변경 API
+const updateMatchingStatus = (matchingId, newStatus) => {
+  return axios.patch(
+    `${serverURL}/matching/${matchingId}`,
+    { status: newStatus },
+    { headers: { 'Content-Type': 'application/json' } },
   )
 }
 
@@ -133,6 +143,7 @@ export default {
     }
   },
 
+  // shipment 상태 변경
   async updateShipmentStatus(shipmentId, newStatus) {
     try {
       // DEBUG : shipmentId와 newStatus 값 확인
@@ -149,6 +160,17 @@ export default {
     } catch (err) {
       console.error(`❌ Shipment 상태 변경 실패: ${err}`)
       throw new Error('Shipment 상태 변경 실패!')
+    }
+  },
+
+  // matching 상태 변경
+  async updateMatchingStatus(matchingId, newStatus) {
+    try {
+      const response = await updateMatchingStatus(matchingId, newStatus)
+      return response.data
+    } catch (err) {
+      console.error(`Matching 상태 변경 실패: ${err}`)
+      throw new Error('Matching 상태 변경 실패!')
     }
   },
 }

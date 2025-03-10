@@ -28,7 +28,7 @@ public class Matching {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="matching_id", nullable = false)
-    private Long matchingID;
+    private Long matchingId;
 
     @Column(name="shipment_id", nullable = false)
     private Long shipmentId;

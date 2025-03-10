@@ -28,6 +28,9 @@ const isAuth = computed(() => store.getters.getIsAuth)
       <RouterLink to="/regist" v-if="isAuth" class="text-sm/6 font-semibold text-gray-900"
         >Regist</RouterLink
       >
+      <RouterLink to="/matching" v-if="isAuth" class="text-sm/6 font-semibold text-gray-900"
+        >MyMatching</RouterLink
+      >
       <RouterLink to="/signup" v-if="!isAuth" class="text-sm/6 font-semibold text-gray-900"
         >Sign Up</RouterLink
       >
