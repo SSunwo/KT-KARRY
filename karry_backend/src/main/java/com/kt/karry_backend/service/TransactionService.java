@@ -60,4 +60,20 @@ public class TransactionService {
     public Transaction getTransactionByMatchingId(Long matchingId) {
         return transactionRepository.findByMatchingId(matchingId).orElse(null);
     }
+
+    public BigDecimal getUnsettledAmountByCarrier(String userId) {
+        return transactionRepository.getUnsettledAmountByCarrier(userId);
+    }
+
+    public BigDecimal getSettledAmountByCarrier(String userId) {
+        return transactionRepository.getSettledAmountByCarrier(userId);
+    }
+
+    public List<Transaction> getPendingShipmentsByShipper(String userId) {
+        return transactionRepository.getPendingShipmentsByShipper(userId);
+    }
+
+    public BigDecimal getTotalPaymentByShipper(String userId) {
+        return transactionRepository.getTotalPaymentByShipper(userId);
+    }
 }

@@ -1,6 +1,7 @@
 package com.kt.karry_backend.controller;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class TransactionController {
 
     @Autowired
     private TransactionService transactionService;
+
+    /* 거래 관련 API */
 
      // 특정 사용자가 등록한 거래 내역 조회
     @GetMapping("/createdBy/{createdBy}")
@@ -74,4 +77,40 @@ public class TransactionController {
         return ResponseEntity.ok(Map.of("transactionId", transaction.getTransactionId()));
     }
 
+    /* Dashboard용 API */
+
+    // 🚚 Carrier(차주) - 배송 목록 조회
+    @GetMapping("/dashboard/carrier/{userId}")
+    public ResponseEntity<List<Transaction>> getCarrierTransactions(@PathVariable String userId) {
+        List<Transaction> transactions = transactionService.getTransactionsByAcceptedBy(userId);
+        return ResponseEntity.ok(transactions);
+    }
+
+    // 🚚 Carrier(차주) - 미정산 금액 조회
+    @GetMapping("/dashboard/carrier/{userId}/unsettled")
+    public ResponseEntity<Map<String, BigDecimal>> getUnsettledAmount(@PathVariable String userId) {
+        BigDecimal unsettledAmount = transactionService.getUnsettledAmountByCarrier(userId);
+        return ResponseEntity.ok(Map.of("unsettledAmount", unsettledAmount));
+    }
+
+    // 🚚 Carrier(차주) - 정산된 금액 조회
+    @GetMapping("/dashboard/carrier/{userId}/settled")
+    public ResponseEntity<Map<String, BigDecimal>> getSettledAmount(@PathVariable String userId) {
+        BigDecimal settledAmount = transactionService.getSettledAmountByCarrier(userId);
+        return ResponseEntity.ok(Map.of("settledAmount", settledAmount));
+    }
+
+    // 📦 Shipper(화주) - 배송되지 않은 목록 조회
+    @GetMapping("/dashboard/shipper/{userId}/pending")
+    public ResponseEntity<List<Transaction>> getPendingShipments(@PathVariable String userId) {
+        List<Transaction> transactions = transactionService.getPendingShipmentsByShipper(userId);
+        return ResponseEntity.ok(transactions);
+    }
+
+    // 📦 Shipper(화주) - 대금 지불 금액 조회
+    @GetMapping("/dashboard/shipper/{userId}/payment")
+    public ResponseEntity<Map<String, BigDecimal>> getTotalPayment(@PathVariable String userId) {
+        BigDecimal totalPayment = transactionService.getTotalPaymentByShipper(userId);
+        return ResponseEntity.ok(Map.of("totalPayment", totalPayment));
+    }
 }
