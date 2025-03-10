@@ -79,7 +79,16 @@ export default {
       try {
         await registAPI.updateMatchingStatus(matching.matchingId, 'Completed')
         await registAPI.updateShipmentStatus(matching.shipmentId, 'Completed')
-        alert('✅ 배송 완료 처리되었습니다!')
+
+        const transactionId = await registAPI.getTransactionIdByMatchingId(matching.matchingId)
+        if (!transactionId) {
+          throw new Error('🚨 거래 ID를 찾을 수 없습니다!')
+        }
+
+        console.log(`거래 정산 요청: transactionId=${transactionId}`)
+        await registAPI.completeTransaction(transactionId)
+
+        alert('배송 완료 처리되었습니다!')
         this.fetchUserMatchings()
       } catch (error) {
         alert('배송 완료 처리 실패!')

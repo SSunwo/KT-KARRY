@@ -36,10 +36,10 @@ public class Matching {
     // @Column(name="user_id", nullable = false)
     // private String userId;
     @Column(name="created_by", nullable = false)
-    private String createdBy; // 🚀 등록한 사용자 ID
+    private String createdBy; // 등록한 사용자 ID
 
     @Column(name="accepted_by", nullable = true)
-    private String acceptedBy; // 🚚 수락한 사용자 ID (기본값 null)
+    private String acceptedBy; // 수락한 사용자 ID (기본값 null)
 
     @Column(name = "origin", nullable = false, length = 255)
     private String origin;
@@ -55,7 +55,7 @@ public class Matching {
     private BigDecimal amount;
 
     @Column(nullable = false)
-    private String status = "shipping"; // 기본 상태를 shipping으로 설정
+    private String status = "Shipping"; // 기본 상태를 Shipping으로 설정
 
     @Column(name = "accepted_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime acceptedAt;

@@ -77,4 +77,9 @@ public class MatchingService {
         }
         return false;
     }
+
+    public Matching getMatchingByShipmentId(Long shipmentId) {
+    return matchingRepository.findByShipmentId(shipmentId)
+        .orElse(null);
+}
 }

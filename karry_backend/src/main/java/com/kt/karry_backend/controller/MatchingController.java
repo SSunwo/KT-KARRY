@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/matching")
 @RequiredArgsConstructor
-public class MatchingControlloer {
+public class MatchingController {
     
     @Autowired
     private MatchingService matchingService;
@@ -74,5 +74,17 @@ public class MatchingControlloer {
         } else {
             return ResponseEntity.badRequest().body("Matching 상태 업데이트 실패!");
         }
+    }
+
+    // shipmentId로 matchingId 조회 API
+    @GetMapping("/shipment/{shipmentId}")
+    public ResponseEntity<?> getMatchingIdByShipmentId(@PathVariable Long shipmentId) {
+        Matching matching = matchingService.getMatchingByShipmentId(shipmentId);
+
+        if (matching == null) {
+            return ResponseEntity.badRequest().body("🚨 해당 shipmentId의 매칭을 찾을 수 없습니다.");
+        }
+
+        return ResponseEntity.ok(Map.of("matchingId", matching.getMatchingId()));
     }
 }

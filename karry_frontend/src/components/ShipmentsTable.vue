@@ -94,33 +94,40 @@ export default {
 
     async acceptShipment() {
       try {
-        // ✅ selectedPriceLog가 정상적으로 로드되었는지 확인
+        // selectedPriceLog가 정상적으로 로드되었는지 확인
         if (!this.selectedPriceLog || !this.selectedPriceLog.shipmentId) {
-          alert('🚨 잘못된 요청: PriceLog 데이터가 없습니다!')
+          alert('잘못된 요청: PriceLog 데이터가 없습니다!')
           return
         }
 
         const shipmentId = this.selectedPriceLog?.shipmentId
-        const createdBy = this.selectedPriceLog?.userId // 🚀 등록한 사용자 ID 가져오기
-        const acceptedBy = this.loggedInUserId // 🚀 현재 로그인한 사용자 ID
+        const pricelogId = this.selectedPriceLog?.priceLogId // 요금 로그 ID
+        const amount = this.selectedPriceLog?.calculatedPrice // 거래 금액
+        const createdBy = this.selectedPriceLog?.userId // 등록한 사용자 ID 가져오기
+        const acceptedBy = this.loggedInUserId // 현재 로그인한 사용자 ID
 
-        console.log(`📦 배차 진행: shipmentId=${shipmentId}`)
-
-        // 🚀 배차 생성 요청
+        // 1. 배차 생성 요청 (Matching 생성)
         await registAPI.createMatching(shipmentId, createdBy, acceptedBy)
 
-        // Shipment 테이블의 status를 "shipping"으로 변경
-        console.log(`🚚 상태 변경 요청: shipmentId=${shipmentId}, status=Shipping`)
+        // 2. Shipment 테이블의 status를 "Shipping"으로 변경
+        console.log(`상태 변경 요청: shipmentId=${shipmentId}, status=Shipping`)
         await registAPI.updateShipmentStatus(shipmentId, 'Shipping')
 
-        alert('✅ 운송 배차 성공!')
+        const matchingId = await registAPI.getMatchingIdByShipmentId(shipmentId)
+        // 3. **거래 내역 생성**
+        console.log(
+          `거래 생성: matchingId=${matchingId}, pricelogId=${pricelogId}, amount=${amount}, createdBy=${createdBy}, acceptedBy=${acceptedBy}`,
+        )
+        await registAPI.createTransaction(matchingId, pricelogId, amount, createdBy, acceptedBy)
 
-        // 🛑 모달 닫기 + 배차 목록 새로고침
+        alert('운송 배차 성공!')
+
+        // 모달 닫기 + 배차 목록 새로고침
         this.closeModal()
         this.findAllShipmentsList()
       } catch (error) {
-        alert('🚨 운송 배차 실패! 서버 오류 발생')
-        console.error('🚨 오류 메시지:', error)
+        alert('운송 배차 실패! 서버 오류 발생')
+        console.error('오류 메시지:', error)
       }
     },
   },

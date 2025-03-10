@@ -73,6 +73,84 @@ const updateMatchingStatus = (matchingId, newStatus) => {
   )
 }
 
+// 거래 내역 생성 API (배송 수락 시 호출)
+const createTransaction = (matchingId, pricelogId, amount, createdBy, acceptedBy) => {
+  return axios.post(
+    `${serverURL}/transaction/create`,
+    {
+      matchingId: matchingId,
+      pricelogId: pricelogId,
+      amount: amount,
+      createdBy: createdBy,
+      acceptedBy: acceptedBy,
+    },
+    {
+      headers: { 'Content-Type': 'application/json' },
+    },
+  )
+}
+
+// 거래 상태 업데이트 API (배송 완료 시 호출)
+const updateTransactionStatus = (matchingId, newStatus) => {
+  return axios.patch(
+    `${serverURL}/transaction/status/${matchingId}`,
+    {
+      status: newStatus,
+    },
+    {
+      headers: { 'Content-Type': 'application/json' },
+    },
+  )
+}
+
+// // 거래 정산 API
+// const completeTransaction = (transactionId) => {
+//   return axios.patch(
+//     `${serverURL}/transaction/complete/${transactionId}`,
+//     {},
+//     {
+//       headers: { 'Content-Type': 'application/json' },
+//     },
+//   )
+// }
+
+// 매칭 ID를 이용하여 transactionId 가져오는 API
+const getTransactionIdByMatchingId = async (matchingId) => {
+  try {
+    console.log(`거래 ID 조회 요청: matchingId=${matchingId}`)
+    const response = await axios.get(`${serverURL}/transaction/matching/${matchingId}`)
+
+    if (!response.data || !response.data.transactionId) {
+      console.error('거래 ID를 찾을 수 없습니다!', response.data)
+      return null
+    }
+
+    console.log(`거래 ID 조회 성공: ${response.data.transactionId}`)
+    return response.data.transactionId
+  } catch (error) {
+    console.error(`거래 ID 조회 실패: ${error.response?.data || error.message}`)
+    return null
+  }
+}
+
+// 🚀 ShipmentId로 MatchingId 조회 API
+const getMatchingIdByShipmentId = async (shipmentId) => {
+  try {
+    console.log(`📌 매칭 ID 조회 요청: shipmentId=${shipmentId}`)
+    const response = await axios.get(`${serverURL}/matching/shipment/${shipmentId}`)
+
+    if (!response.data || !response.data.matchingId) {
+      console.error('🚨 매칭 ID를 찾을 수 없습니다!', response.data)
+      return null
+    }
+
+    return response.data.matchingId
+  } catch (error) {
+    console.error(`🚨 매칭 ID 조회 실패: ${error}`)
+    return null
+  }
+}
+
 export default {
   async doRegist(user_id, origin, destination, weight, size, price, status) {
     try {
@@ -116,7 +194,7 @@ export default {
   // 백엔드에서 데이터를 반환하도록 수정
   async getPricelog(shipmentId) {
     try {
-      console.log(`🛠️ API 호출: ${serverURL}/pricelog/${shipmentId}`) // 요청 URL 확인
+      console.log(`API 호출: ${serverURL}/pricelog/${shipmentId}`) // 요청 URL 확인
       const priceLogResponse = await getPricelog(shipmentId) // API 호출
 
       console.log('API 응답:', priceLogResponse) // 응답 객체 전체 확인
@@ -154,7 +232,7 @@ export default {
       console.log(`📦 상태 업데이트 요청: shipmentId=${shipmentId}, newStatus=${newStatus}`)
 
       if (!shipmentId) {
-        throw new Error('🚨 shipmentId가 유효하지 않습니다!')
+        throw new Error('shipmentId가 유효하지 않습니다!')
       }
 
       const response = await patchShipmentStatus(shipmentId, newStatus)
@@ -162,7 +240,7 @@ export default {
       console.log('patchShipmentStatus response.data로그입니다' + response.data)
       return response.data
     } catch (err) {
-      console.error(`❌ Shipment 상태 변경 실패: ${err}`)
+      console.error(`Shipment 상태 변경 실패: ${err}`)
       throw new Error('Shipment 상태 변경 실패!')
     }
   },
@@ -177,4 +255,51 @@ export default {
       throw new Error('Matching 상태 변경 실패!')
     }
   },
+
+  // ✅ 거래 내역 생성 (배송 수락 시)
+  async createTransaction(matchingId, pricelogId, amount, createdBy, acceptedBy) {
+    try {
+      const response = await createTransaction(
+        matchingId,
+        pricelogId,
+        amount,
+        createdBy,
+        acceptedBy,
+      )
+      return response.data
+    } catch (err) {
+      console.error(`🚨 거래 생성 실패: ${err}`)
+      throw new Error('거래 생성 실패!')
+    }
+  },
+
+  // 거래 상태 업데이트 (배송 완료 시)
+  async updateTransactionStatus(matchingId, newStatus) {
+    try {
+      const response = await updateTransactionStatus(matchingId, newStatus)
+      return response.data
+    } catch (err) {
+      console.error(`🚨 거래 상태 업데이트 실패: ${err}`)
+      throw new Error('거래 상태 업데이트 실패!')
+    }
+  },
+
+  // 거래 정산
+  async completeTransaction(transactionId) {
+    try {
+      console.log(`API 요청: 거래 정산 transactionId=${transactionId}`) // 🛠️ 디버깅 추가
+      const response = await axios.patch(
+        `${serverURL}/transaction/complete/${transactionId}`,
+        {},
+        { headers: { 'Content-Type': 'application/json' } },
+      )
+      return response.data
+    } catch (err) {
+      console.error(`거래 정산 실패: ${err}`)
+      throw new Error('거래 정산 실패!')
+    }
+  },
+
+  getTransactionIdByMatchingId,
+  getMatchingIdByShipmentId,
 }

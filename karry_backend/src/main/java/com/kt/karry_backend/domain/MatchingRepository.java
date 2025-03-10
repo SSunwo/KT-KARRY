@@ -17,4 +17,5 @@ public interface MatchingRepository extends JpaRepository<Matching, Long> {
     List<Matching> findByAcceptedBy(String acceptedBy);
     
     Optional<Matching> findByMatchingId(Long matchingId);
+    Optional<Matching> findByShipmentId(Long shipmentId);
 }
