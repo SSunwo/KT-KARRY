@@ -12,5 +12,5 @@ import com.kt.karry_backend.entity.Shipment;
 public interface ShipmentRepository extends JpaRepository<Shipment, Long> {
 
     List<Shipment> findAll();
-    Optional<Shipment> findByShipmentId(Integer shipmentId);
+    Optional<Shipment> findByShipmentId(Long shipmentId);
 } 

@@ -36,6 +36,9 @@ public class PriceLog {
     @Column(name = "shipment_id", nullable = false)
     private Long shipmentId;
 
+    @Column(name = "user_id", nullable = false)
+    private String userId; 
+
     @Column(name = "origin", nullable = false, length = 255)
     private String origin;
 

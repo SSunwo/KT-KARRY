@@ -26,7 +26,7 @@ public class ShipmentService {
         return shipmentRepository.findAll();
     }
 
-    public Optional<Shipment> findByShipmentId(Integer shipmentId) {
+    public Optional<Shipment> findByShipmentId(Long shipmentId) {
         return shipmentRepository.findByShipmentId(shipmentId);
     };
 
@@ -40,5 +40,17 @@ public class ShipmentService {
         return savedShipment;
     }
 
-    
+    @Transactional
+    public boolean updateShipmentStatus(Long shipmentId, String newStatus) {
+        Optional<Shipment> shipmentOptional = shipmentRepository.findByShipmentId(shipmentId);
+        
+        if (shipmentOptional.isPresent()) {
+            Shipment shipment = shipmentOptional.get();
+            shipment.setStatus(newStatus);
+            shipmentRepository.save(shipment);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

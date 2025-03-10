@@ -38,6 +38,27 @@ const getPricelog = (shipmentId) => {
   })
 }
 
+/// 운송 매칭 API 호출
+const assignMatching = (shipmentId) => {
+  return axios.post(`${serverURL}/matching/${shipmentId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+}
+
+const patchShipmentStatus = (shipmentId, newStatus) => {
+  console.log(`🔄 PATCH 요청: shipmentId=${shipmentId}, newStatus=${newStatus}`) // DEBUG 추가
+
+  return axios.patch(
+    `http://localhost:8080/shipment/${shipmentId}`,
+    { status: newStatus },
+    {
+      headers: { 'Content-Type': 'application/json' },
+    },
+  )
+}
+
 export default {
   async doRegist(user_id, origin, destination, weight, size, price, status) {
     try {
@@ -78,16 +99,16 @@ export default {
   },
 
   // 특정 배송 요청의 PriceLog 정보 가져오기
-  // ✅ 백엔드에서 데이터를 반환하도록 수정
+  // 백엔드에서 데이터를 반환하도록 수정
   async getPricelog(shipmentId) {
     try {
       console.log(`🛠️ API 호출: ${serverURL}/pricelog/${shipmentId}`) // 요청 URL 확인
       const priceLogResponse = await getPricelog(shipmentId) // API 호출
 
-      console.log('📥 API 응답:', priceLogResponse) // 응답 객체 전체 확인
+      console.log('API 응답:', priceLogResponse) // 응답 객체 전체 확인
 
       if (!priceLogResponse || !priceLogResponse.data) {
-        console.error(`❌ PriceLog 데이터가 존재하지 않습니다. shipmentId: ${shipmentId}`)
+        console.error(`PriceLog 데이터가 존재하지 않습니다. shipmentId: ${shipmentId}`)
         return null // `undefined`가 아니라 `null` 반환
       }
 
@@ -95,6 +116,39 @@ export default {
     } catch (err) {
       console.error(`PriceLog 불러오기 실패 (shipmentId: ${shipmentId}):`, err)
       throw new Error('PriceLog 정보를 불러오는데 실패했습니다.')
+    }
+  },
+
+  async createMatching(shipmentId) {
+    try {
+      const response = await assignMatching(shipmentId)
+
+      if (!(response.status === 201 || response.status === 200)) {
+        console.error('예상치 못한 응답:', response)
+        throw new Error('운송 매칭 실패: 서버 응답이 올바르지 않습니다.')
+      }
+    } catch (err) {
+      console.error('운송 매칭 실패:', err)
+      throw new Error('서버 오류: 운송 매칭 중 문제가 발생했습니다.')
+    }
+  },
+
+  async updateShipmentStatus(shipmentId, newStatus) {
+    try {
+      // DEBUG : shipmentId와 newStatus 값 확인
+      console.log(`📦 상태 업데이트 요청: shipmentId=${shipmentId}, newStatus=${newStatus}`)
+
+      if (!shipmentId) {
+        throw new Error('🚨 shipmentId가 유효하지 않습니다!')
+      }
+
+      const response = await patchShipmentStatus(shipmentId, newStatus)
+      console.log('patchShipmentStatus response로그입니다' + response)
+      console.log('patchShipmentStatus response.data로그입니다' + response.data)
+      return response.data
+    } catch (err) {
+      console.error(`❌ Shipment 상태 변경 실패: ${err}`)
+      throw new Error('Shipment 상태 변경 실패!')
     }
   },
 }

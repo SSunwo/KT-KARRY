@@ -57,6 +57,49 @@ export default {
       this.isModalOpen = false
       this.selectedPriceLog = null
     },
+
+    async acceptShipment() {
+      try {
+        // ✅ selectedPriceLog가 정상적으로 로드되었는지 확인
+        if (!this.selectedPriceLog || !this.selectedPriceLog.shipmentId) {
+          alert('🚨 잘못된 요청: PriceLog 데이터가 없습니다!')
+          return
+        }
+
+        const shipmentId = this.selectedPriceLog.shipmentId
+        console.log(`📦 배차 진행: shipmentId=${shipmentId}`)
+
+        // 🚀 배차 생성 요청
+        // const response =
+        await registAPI.createMatching(shipmentId)
+
+        // if (!(response.status === 201 || response.status === 200)) {
+        //   alert('❌ 운송 배차 실패!')
+        //   console.error('🚨 서버 응답:', response)
+        //   return
+        // }
+
+        // Shipment 테이블의 status를 "shipping"으로 변경
+        console.log(`🚚 상태 변경 요청: shipmentId=${shipmentId}, status=Shipping`)
+        // const statusResponse =
+        await registAPI.updateShipmentStatus(shipmentId, 'Shipping')
+
+        // if (!(statusResponse.status === 200)) {
+        //   alert('❌ 상태 업데이트 실패!')
+        //   console.error('🚨 상태 업데이트 실패:', statusResponse)
+        //   return
+        // }
+
+        alert('✅ 운송 배차 성공!')
+
+        // 🛑 모달 닫기 + 배차 목록 새로고침
+        this.closeModal()
+        this.findAllShipmentsList()
+      } catch (error) {
+        alert('🚨 운송 배차 실패! 서버 오류 발생')
+        console.error('🚨 오류 메시지:', error)
+      }
+    },
   },
 
   mounted() {
@@ -109,7 +152,7 @@ export default {
           >
             {{ key }}
           </th>
-          <th class="px-6 py-3">수락</th>
+          <th class="px-6 py-3">정보 확인</th>
         </tr>
       </thead>
       <tbody>
@@ -123,11 +166,13 @@ export default {
           </td>
           <td class="px-6 py-4">
             <button
+              v-if="shipment.status === 'Pending'"
               @click="fetchPriceLog(shipment.shipmentId)"
               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               수락
             </button>
+            <span v-else class="text-gray-500">배차 완료</span>
           </td>
         </tr>
       </tbody>
@@ -141,11 +186,17 @@ export default {
   >
     <div class="bg-white p-6 rounded shadow-lg">
       <h2 class="text-lg font-bold">Price Log 정보</h2>
+      <p><strong>아이디:</strong> {{ selectedPriceLog?.userId }}</p>
       <p><strong>출발지:</strong> {{ selectedPriceLog?.origin }}</p>
       <p><strong>도착지:</strong> {{ selectedPriceLog?.destination }}</p>
       <p><strong>거리:</strong> {{ selectedPriceLog?.distance }} km</p>
-      <p><strong>기본 요금:</strong> {{ selectedPriceLog?.simplePrice }} 원</p>
-      <p><strong>계산된 요금:</strong> {{ selectedPriceLog?.calculatedPrice }} 원</p>
+      <p><strong>거래 금액:</strong> {{ selectedPriceLog?.calculatedPrice }} 원</p>
+      <button
+        @click="acceptShipment(selectedPriceLog?.shipmentId)"
+        class="mt-4 px-4 py-2 bg-yellow-500 text-white rounded"
+      >
+        수락
+      </button>
       <button @click="closeModal()" class="mt-4 px-4 py-2 bg-red-500 text-white rounded">
         닫기
       </button>

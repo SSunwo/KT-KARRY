@@ -22,7 +22,8 @@ public class PriceLogService {
     @Autowired
     private KakaoAddressService addressService;
 
-    @Autowired NaverMapService naverMapService;
+    @Autowired
+    private NaverMapService naverMapService;
 
     public void savePriceLog(Shipment shipment) {
         // 출발지, 도착지의 좌표 변환
@@ -40,6 +41,7 @@ public class PriceLogService {
         // PriceLog 생성 및 저장
         PriceLog priceLog = PriceLog.builder()
                 .shipmentId(shipment.getShipmentId().longValue())
+                .userId(shipment.getUserId())
                 .origin(shipment.getOrigin())
                 .destination(shipment.getDestination())
                 .originX(originCoordinates[0])
