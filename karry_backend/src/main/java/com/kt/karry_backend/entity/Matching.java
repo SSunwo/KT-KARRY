@@ -33,8 +33,13 @@ public class Matching {
     @Column(name="shipment_id", nullable = false)
     private Long shipmentId;
 
-    @Column(name="user_id", nullable = false)
-    private String userId;
+    // @Column(name="user_id", nullable = false)
+    // private String userId;
+    @Column(name="created_by", nullable = false)
+    private String createdBy; // 🚀 등록한 사용자 ID
+
+    @Column(name="accepted_by", nullable = true)
+    private String acceptedBy; // 🚚 수락한 사용자 ID (기본값 null)
 
     @Column(name = "origin", nullable = false, length = 255)
     private String origin;

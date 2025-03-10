@@ -39,12 +39,16 @@ const getPricelog = (shipmentId) => {
 }
 
 /// 운송 매칭 API 호출
-const assignMatching = (shipmentId) => {
-  return axios.post(`${serverURL}/matching/${shipmentId}`, {
-    headers: {
-      'Content-Type': 'application/json',
+const assignMatching = (shipmentId, acceptedBy) => {
+  return axios.post(
+    `${serverURL}/matching/${shipmentId}`,
+    { shipmentId, acceptedBy },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
     },
-  })
+  )
 }
 
 // Shipment 상태 변경 API

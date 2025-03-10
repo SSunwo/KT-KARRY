@@ -26,20 +26,30 @@ public class MatchingControlloer {
     @Autowired
     private MatchingService matchingService;
 
-    // 특정 userId에 해당하는 Matching 목록 조회 API
+    // 특정 사용자의 Matching 목록 조회 (등록한 Matching)
     @GetMapping("/user/{userId}")
-    public ResponseEntity<?> getUserMatchings(@PathVariable String userId) {
-        List<Matching> matchings = matchingService.getMatchingsByUserId(userId);
+    public ResponseEntity<?> getUserCreatedMatchings(@PathVariable String userId) {
+        List<Matching> matchings = matchingService.getMatchingsByCreatedBy(userId);
         return ResponseEntity.ok(matchings);
     }
 
-
-    @PostMapping("/{shipmentId}")
-    public ResponseEntity<Matching> assignMatching(@PathVariable Long shipmentId) {
-        
-        Matching matching = matchingService.createMatching(shipmentId);
-        return ResponseEntity.ok(matching);
+    // 특정 사용자의 Matching 목록 조회 (수락한 Matching)
+    @GetMapping("/accepted/{userId}")
+    public ResponseEntity<List<Matching>> getUserAcceptedMatchings(@PathVariable String userId) {
+        List<Matching> matchings = matchingService.getMatchingsByAcceptedBy(userId);
+        return ResponseEntity.ok(matchings);
     }
+
+    // Matching 생성 (운송 배차)
+    @PostMapping("/create")
+    public ResponseEntity<Matching> createMatching(@RequestBody Map<String, Object> request) {
+        Long shipmentId = Long.valueOf(request.get("shipmentId").toString());
+        String acceptedBy = request.get("acceptedBy").toString();
+
+        Matching newMatching = matchingService.createMatching(shipmentId, acceptedBy);
+        return ResponseEntity.ok(newMatching);
+    }
+
 
     // 매칭 상태 변경 (Completed 또는 Cancelled)
     @PatchMapping("/{matchingId}")

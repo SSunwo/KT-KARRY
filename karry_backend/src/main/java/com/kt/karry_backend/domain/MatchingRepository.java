@@ -12,5 +12,9 @@ import com.kt.karry_backend.entity.Matching;
 public interface MatchingRepository extends JpaRepository<Matching, Long> {
     
     List<Matching> findByUserId(String userId);
+
+    List<Matching> findByCreatedBy(String createdBy);
+    List<Matching> findByAcceptedBy(String acceptedBy);
+    
     Optional<Matching> findByMatchingId(Long matchingId);
 }
