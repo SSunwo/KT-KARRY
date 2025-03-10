@@ -94,14 +94,14 @@ export default {
           <td class="border p-2">{{ new Date(matching.acceptedAt).toLocaleString() }}</td>
           <td class="border p-2">
             <button
-              v-if="matching.status === 'shipping'"
+              v-if="matching.status === 'Shipping'"
               @click="completeMatching(matching)"
               class="mt-4 px-4 py-2 bg-green-500 text-white rounded"
             >
               배송 완료
             </button>
             <button
-              v-if="matching.status === 'shipping'"
+              v-if="matching.status === 'Shipping'"
               @click="cancelMatching(matching)"
               class="mt-4 px-4 py-2 bg-red-500 text-white rounded"
             >

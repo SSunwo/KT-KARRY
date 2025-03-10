@@ -42,14 +42,23 @@ public class MatchingControlloer {
 
     // Matching 생성 (운송 배차)
     @PostMapping("/create")
-    public ResponseEntity<Matching> createMatching(@RequestBody Map<String, Object> request) {
+    public ResponseEntity<Matching> assignMatching(
+            @RequestBody Map<String, Object> request) {
+
         Long shipmentId = Long.valueOf(request.get("shipmentId").toString());
         String acceptedBy = request.get("acceptedBy").toString();
+        String createdBy = request.get("createdBy").toString();
 
-        Matching newMatching = matchingService.createMatching(shipmentId, acceptedBy);
+        Matching newMatching = matchingService.createMatching(shipmentId, createdBy, acceptedBy);
         return ResponseEntity.ok(newMatching);
     }
 
+    // @PostMapping("/{shipmentId}")
+    // public ResponseEntity<Matching> assignMatching(@PathVariable Long shipmentId) {
+        
+    //     Matching matching = matchingService.createMatching(shipmentId);
+    //     return ResponseEntity.ok(matching);
+    // }
 
     // 매칭 상태 변경 (Completed 또는 Cancelled)
     @PatchMapping("/{matchingId}")

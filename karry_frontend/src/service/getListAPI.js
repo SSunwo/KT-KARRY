@@ -4,7 +4,7 @@ const serverURL = 'http://localhost:8080'
 
 // 로그인된 사용자의 Matching 목록 가져오기
 const getUserMatchings = (userId) => {
-  return axios.get(`${serverURL}/matching/user/${userId}`, {
+  return axios.get(`${serverURL}/matching/accepted/${userId}`, {
     headers: { 'Content-Type': 'application/json' },
   })
 }

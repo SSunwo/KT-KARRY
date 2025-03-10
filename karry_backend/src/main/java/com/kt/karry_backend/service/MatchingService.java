@@ -42,7 +42,7 @@ public class MatchingService {
     }
 
     @Transactional
-    public Matching createMatching(Long shipmentId, String acceptedBy) {
+    public Matching createMatching(Long shipmentId, String createdBy , String acceptedBy) {
         // PriceLog에서 해당 shipmentId의 정보 조회
         PriceLog priceLog = priceLogRepository.findByShipmentId(shipmentId)
                 .orElseThrow(() -> new RuntimeException("해당 Shipment에 대한 PriceLog를 찾을 수 없습니다."));
@@ -50,7 +50,7 @@ public class MatchingService {
         // Matching 생성 및 저장
         Matching matching = Matching.builder()
                 .shipmentId(priceLog.getShipmentId())
-                .createdBy(priceLog.getUserId())
+                .createdBy(createdBy)
                 .acceptedBy(acceptedBy) // 수락한 사용자
                 .origin(priceLog.getOrigin())
                 .destination(priceLog.getDestination())

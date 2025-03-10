@@ -1,4 +1,5 @@
 <script>
+import { mapGetters } from 'vuex'
 import registAPI from '@/service/registAPI'
 
 export default {
@@ -8,6 +9,11 @@ export default {
       selectedPriceLog: null,
       isModalOpen: false,
     }
+  },
+  computed: {
+    ...mapGetters({
+      loggedInUserId: 'getUserId', // Vuex에서 로그인된 `userId` 가져오기
+    }),
   },
   methods: {
     async findAllShipmentsList() {
@@ -66,12 +72,15 @@ export default {
           return
         }
 
-        const shipmentId = this.selectedPriceLog.shipmentId
+        const shipmentId = this.selectedPriceLog?.shipmentId
+        const createdBy = this.selectedPriceLog?.userId // 🚀 등록한 사용자 ID 가져오기
+        const acceptedBy = this.loggedInUserId // 🚀 현재 로그인한 사용자 ID
+
         console.log(`📦 배차 진행: shipmentId=${shipmentId}`)
 
         // 🚀 배차 생성 요청
         // const response =
-        await registAPI.createMatching(shipmentId)
+        await registAPI.createMatching(shipmentId, createdBy, acceptedBy)
 
         // if (!(response.status === 201 || response.status === 200)) {
         //   alert('❌ 운송 배차 실패!')

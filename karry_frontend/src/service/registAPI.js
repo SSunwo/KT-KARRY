@@ -39,10 +39,10 @@ const getPricelog = (shipmentId) => {
 }
 
 /// 운송 매칭 API 호출
-const assignMatching = (shipmentId, acceptedBy) => {
+const assignMatching = (shipmentId, createdBy, acceptedBy) => {
   return axios.post(
-    `${serverURL}/matching/${shipmentId}`,
-    { shipmentId, acceptedBy },
+    `${serverURL}/matching/create`,
+    { shipmentId: shipmentId, createdBy: createdBy, acceptedBy: acceptedBy },
     {
       headers: {
         'Content-Type': 'application/json',
@@ -133,9 +133,9 @@ export default {
     }
   },
 
-  async createMatching(shipmentId) {
+  async createMatching(shipmentId, createdBy, acceptedBy) {
     try {
-      const response = await assignMatching(shipmentId)
+      const response = await assignMatching(shipmentId, createdBy, acceptedBy)
 
       if (!(response.status === 201 || response.status === 200)) {
         console.error('예상치 못한 응답:', response)
