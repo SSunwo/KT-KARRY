@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+// import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import SignIn from '@/common/SignIn.vue'
 import SignUp from '@/common/SignUp.vue'
@@ -13,7 +13,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView,
+    component: AboutView,
   },
   {
     path: '/about',

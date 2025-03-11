@@ -19,8 +19,8 @@
               <h2 class="text-3xl font-bold text-gray-900 mb-6">서비스 소개</h2>
               <p class="text-lg text-gray-700 mb-6">
                 KT-KARRY는 화주와 운송사를 직접 연결하는 혁신적인 물류 플랫폼입니다. 복잡한 중개
-                과정 없이 효율적이고 투명한 물류 서비스를 제공하여 시간과 비용을 절약하고 운송
-                과정의 모든 단계를 실시간으로 추적할 수 있습니다.
+                과정 없이 효율적이고 투명한 물류 서비스를 제공하여 시간과 비용을 절약할 수 있습니다.
+                <!-- 운송 과정의 모든 단계를 실시간으로 추적할 수 있습니다. -->
               </p>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
@@ -59,7 +59,7 @@
                           d="M5 13l4 4L19 7"
                         ></path>
                       </svg>
-                      <span>실시간 배송 상태 추적</span>
+                      <span>실시간 배송 상태 확인</span>
                     </li>
                     <li class="flex items-start">
                       <svg
@@ -93,7 +93,7 @@
                           d="M5 13l4 4L19 7"
                         ></path>
                       </svg>
-                      <span>안전한 결제 시스템</span>
+                      <span>안전한 정산 시스템</span>
                     </li>
                   </ul>
                 </div>
@@ -259,9 +259,9 @@
                       ></path>
                     </svg>
                   </div>
-                  <h3 class="text-lg font-semibold text-gray-900 mb-2">빠른 매칭 시스템</h3>
+                  <h3 class="text-lg font-semibold text-gray-900 mb-2">효율적인 매칭 시스템</h3>
                   <p class="text-gray-700">
-                    AI 기반 매칭 알고리즘으로 최적의 운송사와 화주를 빠르게 연결합니다.
+                    AI 기반 매칭 알고리즘으로 최적의 운송사와 화주를 효율적으로 연결합니다.
                   </p>
                 </div>
 
@@ -284,9 +284,9 @@
                       ></path>
                     </svg>
                   </div>
-                  <h3 class="text-lg font-semibold text-gray-900 mb-2">안전한 거래</h3>
+                  <h3 class="text-lg font-semibold text-gray-900 mb-2">빠른 정산</h3>
                   <p class="text-gray-700">
-                    에스크로 시스템을 통한 안전한 결제와 정산 처리를 보장합니다.
+                    안전한 결제와 배송 완료 시 빠른 정산 처리를 보장합니다.
                   </p>
                 </div>
 
@@ -322,7 +322,7 @@
     </section>
 
     <!-- Stats Section -->
-    <section class="py-12 bg-gray-100">
+    <!-- <section class="py-12 bg-gray-100">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center mb-10">
           <h2 class="text-3xl font-bold text-gray-900">KT-KARRY 서비스 현황</h2>
@@ -353,7 +353,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- CTA Section -->
     <section class="py-16 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">

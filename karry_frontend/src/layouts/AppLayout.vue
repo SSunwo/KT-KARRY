@@ -42,13 +42,13 @@
             <div>
               <button
                 type="button"
-                class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300"
+                class="flex text-sm bg-gray-100 rounded-full focus:ring-4 focus:ring-gray-300"
                 @click="toggleUserMenu"
               >
                 <span class="sr-only">Open user menu</span>
                 <img
                   class="w-8 h-8 rounded-full"
-                  src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                  src="https://img.icons8.com/?size=100&id=23264&format=png&color=000000"
                   alt="user photo"
                 />
               </button>
@@ -159,10 +159,10 @@
                   />
                 </svg>
                 <span class="flex-1 ml-3 whitespace-nowrap">Shipments</span>
-                <span
+                <!-- <span
                   class="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full"
                   >New</span
-                >
+                > -->
               </router-link>
             </li>
             <li v-if="isAuth">

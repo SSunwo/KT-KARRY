@@ -215,7 +215,7 @@ export default {
             <th scope="col" class="px-4 py-3 whitespace-nowrap">Destination</th>
             <th scope="col" class="px-4 py-3 whitespace-nowrap">Weight</th>
             <th scope="col" class="px-4 py-3 whitespace-nowrap">Size</th>
-            <th scope="col" class="px-4 py-3 whitespace-nowrap">Price</th>
+            <!-- <th scope="col" class="px-4 py-3 whitespace-nowrap">Price</th> -->
             <th scope="col" class="px-4 py-3 whitespace-nowrap">Status</th>
             <th scope="col" class="px-4 py-3 whitespace-nowrap">Created</th>
             <th scope="col" class="px-4 py-3 whitespace-nowrap">Action</th>
@@ -246,7 +246,7 @@ export default {
             </td>
             <td class="px-4 py-3 whitespace-nowrap">{{ shipment.weight }} kg</td>
             <td class="px-4 py-3 whitespace-nowrap">{{ shipment.size }} cm³</td>
-            <td class="px-4 py-3 whitespace-nowrap">₩{{ shipment.price?.toLocaleString() }}</td>
+            <!-- <td class="px-4 py-3 whitespace-nowrap">₩{{ shipment.price?.toLocaleString() }}</td> -->
             <td class="px-4 py-3 whitespace-nowrap">
               <span
                 :class="{
