@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 // import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +31,16 @@ public class UserController {
     @GetMapping("/users")
     public List<User> getUsersAll() {
         return userService.findAll();
+    }
+
+    // 사용자 역할 조회 API
+    @GetMapping("user/{userId}")
+    public ResponseEntity<?> getUserRole(@PathVariable String userId) {
+        User user = userService.getUserById(userId);
+        if (user == null) {
+            return ResponseEntity.badRequest().body("사용자를 찾을 수 없습니다.");
+        }
+        return ResponseEntity.ok(user);
     }
 
     // test용
