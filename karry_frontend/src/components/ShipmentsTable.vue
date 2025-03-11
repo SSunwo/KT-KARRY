@@ -30,17 +30,24 @@ export default {
         const res = await registAPI.getShipmentsList()
         console.log('response data : ', res.data)
         // 응답 구조 확인 후 list 또는 data로 할당
-        this.shipments = res.data.map((shipment) => ({
-          shipmentId: shipment.shipmentId, // 배송 ID
-          userId: shipment.userId,
-          origin: shipment.origin, // 출발지
-          destination: shipment.destination, // 도착지
-          weight: shipment.weight, // 화물 무게
-          size: shipment.size, // 화물 크기
-          price: shipment.price, // 운송 요금
-          status: shipment.status, // 현재 상태
-          createdAt: shipment.createdAt, // 생성 일자
-        }))
+        this.shipments = res.data
+          .map((shipment) => ({
+            shipmentId: shipment.shipmentId, // 배송 ID
+            userId: shipment.userId,
+            origin: shipment.origin, // 출발지
+            destination: shipment.destination, // 도착지
+            weight: shipment.weight, // 화물 무게
+            size: shipment.size, // 화물 크기
+            price: shipment.price, // 운송 요금
+            status: shipment.status, // 현재 상태
+            createdAt: shipment.createdAt, // 생성 일자
+          }))
+          .sort((a, b) => {
+            // "Pending" 상태의 배송을 상단에 배치
+            if (a.status === 'Pending' && b.status !== 'Pending') return -1
+            if (a.status !== 'Pending' && b.status === 'Pending') return 1
+            return 0
+          })
       } catch (error) {
         console.error('배차 목록 불러오기 실패:', error)
       }

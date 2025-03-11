@@ -120,7 +120,7 @@ export default {
     <!-- Header section -->
     <div class="p-4 bg-white dark:bg-gray-900">
       <div class="flex justify-between items-center">
-        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">🚚 나의 운송 매칭 내역</h2>
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">🚚 운송 매칭</h2>
         <button
           @click="fetchUserMatchings"
           class="px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"
