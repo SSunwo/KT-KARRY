@@ -23,7 +23,7 @@
               ></path>
             </svg>
           </button>
-          <router-link to="/" class="flex items-center ml-2 md:mr-24">
+          <router-link to="/about" class="flex items-center ml-2 md:mr-24">
             <img class="h-8 w-auto mr-2" src="../assets/muco.png" alt="" />
             <span class="self-center text-xl font-semibold whitespace-nowrap">KT-KARRY</span>
           </router-link>
@@ -103,7 +103,26 @@
           <ul class="space-y-2 font-medium">
             <li>
               <router-link
-                to="/"
+                to="/about"
+                class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+              >
+                <svg
+                  class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+                  />
+                </svg>
+                <span class="flex-1 ml-3 whitespace-nowrap">About</span>
+              </router-link>
+            </li>
+            <li v-if="isAuth">
+              <router-link
+                to="/dashboard"
                 class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
               >
                 <svg
@@ -120,7 +139,7 @@
                     d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"
                   />
                 </svg>
-                <span class="ml-3">Home</span>
+                <span class="ml-3">Dashboard</span>
               </router-link>
             </li>
             <li v-if="isAuth">
@@ -190,25 +209,7 @@
                 <span class="flex-1 ml-3 whitespace-nowrap">My Matchings</span>
               </router-link>
             </li>
-            <li>
-              <router-link
-                to="/about"
-                class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
-              >
-                <svg
-                  class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
-                  />
-                </svg>
-                <span class="flex-1 ml-3 whitespace-nowrap">About</span>
-              </router-link>
-            </li>
+
             <li v-if="!isAuth">
               <router-link
                 to="/signin"

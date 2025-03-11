@@ -1,6 +1,7 @@
-import { USER_ID, IS_AUTH, ERROR_STATE } from './mutation_types'
+import { USER_ID, IS_AUTH, ERROR_STATE, USER_ROLE } from './mutation_types'
 import loginAPI from '../service/loginAPI'
 import router from '@/router'
+import axios from 'axios'
 
 let setUserId = ({ commit }, data) => {
   commit(USER_ID, data)
@@ -17,7 +18,7 @@ let setIsAuth = ({ commit }, data) => {
 }
 
 // 백엔드에서 반환한 결과값을 가지고 로그인 성공 실패 여부를 vuex에 넣어준다.
-let processResponse = (store, loginResponse) => {
+let processResponse = async (store, loginResponse) => {
   console.log('processResponse에서 loginResponse:', loginResponse) // 응답 데이터 확인
 
   if (loginResponse === 'notFound') {
@@ -29,6 +30,9 @@ let processResponse = (store, loginResponse) => {
     setUserId(store, loginResponse.data.user_id)
     setErrorState(store, '')
     setIsAuth(store, true)
+
+    // 로그인 후 사용자 역할 가져오기
+    await store.dispatch('fetchUserRole', loginResponse.data.user_id)
 
     console.log('저장된 user_id:', store.getters.getUserId) // Vuex에 user_id가 정상 저장되는지 확인
     router.push('/')
@@ -62,5 +66,21 @@ export default {
       )
       router.push('/signin')
     }, 100) // 🚀 100ms 지연 후 확인
+  },
+
+  async fetchUserRole({ commit }, userId) {
+    try {
+      console.log(`🔍 fetchUserRole 실행됨: userId=${userId}`)
+      const response = await axios.get(`http://localhost:8080/user/${userId}`)
+      console.log('📝 API 응답:', response.data)
+
+      const userRole = response.data.role
+      console.log(`✅ 저장될 userRole: ${userRole}`)
+
+      localStorage.setItem('userRole', userRole) // LocalStorage 저장
+      commit(USER_ROLE, userRole) // Vuex Store 업데이트
+    } catch (error) {
+      console.error('❌ 사용자 역할을 불러오는데 실패했습니다.', error)
+    }
   },
 }

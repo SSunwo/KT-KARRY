@@ -18,4 +18,10 @@ public class FactTableController {
         factTableService.migrateDataToFactTable();
         return ResponseEntity.ok("FactTable 데이터 마이그레이션 완료!");
     }
+
+    @GetMapping("/dashboard/{userId}")
+    public ResponseEntity<?> getDashboardData(@PathVariable String userId) {
+        
+        return ResponseEntity.ok(factTableService.getDashboardData(userId));
+    }
 }

@@ -49,6 +49,12 @@ const routes = [
     component: Matching,
     meta: { requiresAuth: true },
   },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: () => import('@/views/DashboardView.vue'),
+    meta: { requiresAuth: true },
+  },
 ]
 
 const router = createRouter({

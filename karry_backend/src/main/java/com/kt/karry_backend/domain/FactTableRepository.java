@@ -1,5 +1,7 @@
 package com.kt.karry_backend.domain;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -36,4 +38,11 @@ public interface FactTableRepository extends JpaRepository<FactTable, Long> {
         LEFT JOIN price_log p ON s.shipment_id = p.shipment_id
         """, nativeQuery = true)
     void migrateFactTable();
+
+    List<FactTable> findByUserId(String userId);
+
+    List<FactTable> findByAcceptedBy(String acceptedBy); 
+
+    boolean existsByAcceptedBy(String acceptedBy); 
+    boolean existsByUserId(String userId);
 }

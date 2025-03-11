@@ -43,8 +43,8 @@ export default {
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center min-h-screen">
-    <h2 class="text-xl font-semibold">Please Log In</h2>
+  <div class="flex flex-col items-center justify-center">
+    <h2 class="text-xl font-semibold">Sign In</h2>
     <form class="mt-6 space-y-4" @submit.prevent="fnLogin">
       <div>
         <label for="id" class="block text-sm/6 font-medium text-gray-900">User ID</label>
