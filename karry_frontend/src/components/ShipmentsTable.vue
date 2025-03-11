@@ -53,7 +53,29 @@ export default {
       }
     },
 
+    // AI추천 sorting 기능
     // Format long text to prevent table overflow
+    // async findAllShipmentsList() {
+    //   try {
+    //     const res = await registAPI.getRecommendedShipments()
+    //     console.log('🔍 AI 추천 정렬된 배송 목록:', res.data)
+
+    //     this.shipments = res.data.map((shipment) => ({
+    //       shipmentId: shipment.shipmentId,
+    //       userId: shipment.userId,
+    //       origin: shipment.origin,
+    //       destination: shipment.destination,
+    //       weight: shipment.weight,
+    //       size: shipment.size,
+    //       price: shipment.price,
+    //       status: shipment.status,
+    //       createdAt: shipment.createdAt,
+    //     }))
+    //   } catch (error) {
+    //     console.error('🚨 배송 목록 불러오기 실패:', error)
+    //   }
+    // },
+
     formatText(text, maxLength = 20) {
       if (!text) return ''
       return text.length > maxLength ? text.substring(0, maxLength) + '...' : text

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.kt.karry_backend.entity.Shipment;
+import com.kt.karry_backend.service.ShipmentRecommendationService;
 import com.kt.karry_backend.service.ShipmentService;
 
 @RestController
@@ -25,6 +26,8 @@ public class ShipmentController {
 
     @Autowired
     private ShipmentService shipmentService;
+
+    private ShipmentRecommendationService recommendationService;
 
 
     // shipment 목록 불러오기
@@ -76,6 +79,11 @@ public class ShipmentController {
         } else {
             return ResponseEntity.badRequest().body("Shipment 상태 업데이트 실패!");
         }
+    }
+
+    @GetMapping("/shipment/recommend")
+    public List<Shipment> getRecommendedShipments() {
+        return recommendationService.recommendShipments();
     }
 
 

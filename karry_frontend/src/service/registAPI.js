@@ -302,4 +302,8 @@ export default {
 
   getTransactionIdByMatchingId,
   getMatchingIdByShipmentId,
+
+  getRecommendedShipments() {
+    return axios.get(`${serverURL}/shipment/recommend`)
+  },
 }

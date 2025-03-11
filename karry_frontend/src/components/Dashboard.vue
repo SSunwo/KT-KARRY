@@ -63,11 +63,19 @@ export default {
           this.carrierShipments = response.carrierShipments || []
           this.unsettledAmount = response.unsettledAmount || 0
           this.settledAmount = response.settledAmount || 0
-          this.recentShipments = this.carrierShipments.slice(0, 5)
+
+          // 날짜 기준으로 정렬 후 상위 5개 선택
+          this.recentShipments = [...this.carrierShipments]
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            .slice(0, 5)
         } else if (this.isShipper) {
           this.shipperShipments = response.shipperShipments || []
           this.totalPayment = response.totalPayment || 0
-          this.recentShipments = this.shipperShipments.slice(0, 5)
+
+          // 날짜 기준으로 정렬 후 상위 5개 선택
+          this.recentShipments = [...this.shipperShipments]
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            .slice(0, 5)
         }
       } catch (error) {
         console.error('📌 대시보드 데이터 불러오기 실패:', error)
