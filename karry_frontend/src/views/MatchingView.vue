@@ -65,7 +65,12 @@ export default {
 
         const res = await getListAPI.getUserMatchingList(this.userId)
         console.log('매칭된 운송 목록:', res)
-        this.matchings = res || []
+        this.matchings =
+          res.sort((a, b) => {
+            // "Shipping" 또는 "Pending" 상태를 상단에 배치하고, "Completed"와 "Cancelled"는 하단으로 이동
+            const statusOrder = { Pending: 1, Shipping: 2, Completed: 3, Cancelled: 4 }
+            return statusOrder[a.status] - statusOrder[b.status]
+          }) || []
       } catch (error) {
         console.error('매칭 목록 불러오기 실패:', error)
         this.error = '매칭된 운송 목록을 불러오는 데 실패했습니다.'

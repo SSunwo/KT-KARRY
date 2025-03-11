@@ -28,6 +28,55 @@ import lombok.Setter;
 @Table(name = "price_log")
 public class PriceLog {
     
+    // @Id
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @Column(name = "pricelog_id")
+    // private Long priceLogId;
+
+    // @Column(name = "shipment_id", nullable = false)
+    // private Long shipmentId;
+
+    // @Column(name = "user_id", nullable = false)
+    // private String userId; 
+
+    // @Column(name = "origin", nullable = false, length = 255)
+    // private String origin;
+
+    // @Column(name = "destination", nullable = false, length = 255)
+    // private String destination;
+
+    // @Column(name = "origin_x", precision = 15, scale = 10) // 좌표 추가
+    // private BigDecimal originX;
+
+    // @Column(name = "origin_y", precision = 15, scale = 10)
+    // private BigDecimal originY;
+
+    // @Column(name = "destination_x", precision = 15, scale = 10)
+    // private BigDecimal destinationX;
+
+    // @Column(name = "destination_y", precision = 15, scale = 10)
+    // private BigDecimal destinationY;
+
+    // @Column(name = "distance", precision = 10, scale = 2)
+    // private BigDecimal distance;
+
+    // @Column(name = "simple_price", precision = 10, scale = 2)
+    // private BigDecimal simplePrice;
+
+    // @Column(name = "weight", precision = 10, scale = 2)
+    // private BigDecimal weight;
+
+    // @Column(name = "size", precision = 10, scale = 2)
+    // private BigDecimal size;
+
+    // @Column(name = "calculated_price", precision = 10, scale = 2)
+    // private BigDecimal calculatedPrice;
+
+    // @CreationTimestamp
+    // @Temporal(TemporalType.TIMESTAMP)
+    // @Column(name = "created_at", nullable = false, updatable = false)
+    // private Timestamp createdAt;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pricelog_id")
@@ -45,7 +94,7 @@ public class PriceLog {
     @Column(name = "destination", nullable = false, length = 255)
     private String destination;
 
-    @Column(name = "origin_x", precision = 15, scale = 10) // 좌표 추가
+    @Column(name = "origin_x", precision = 15, scale = 10)
     private BigDecimal originX;
 
     @Column(name = "origin_y", precision = 15, scale = 10)
@@ -71,6 +120,18 @@ public class PriceLog {
 
     @Column(name = "calculated_price", precision = 10, scale = 2)
     private BigDecimal calculatedPrice;
+
+    @Column(name = "route_path", columnDefinition = "TEXT")  // 네이버 경로 데이터 저장
+    private String routePath;
+
+    @Column(name = "taxi_fare", precision = 10, scale = 2)
+    private BigDecimal taxiFare;
+
+    @Column(name = "toll_fare", precision = 10, scale = 2)
+    private BigDecimal tollFare;
+
+    @Column(name = "fuel_price", precision = 10, scale = 2)
+    private BigDecimal fuelPrice;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

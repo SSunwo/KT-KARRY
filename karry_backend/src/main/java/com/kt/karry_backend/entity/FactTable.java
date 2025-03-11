@@ -56,6 +56,39 @@ public class FactTable {
     @Column(name = "calculated_price", precision = 10, scale = 2)
     private BigDecimal calculatedPrice;  // 최종 계산된 가격
 
+    @Column(name = "origin_x", precision = 15, scale = 10)
+    private BigDecimal originX; // 출발지 위도
+
+    @Column(name = "origin_y", precision = 15, scale = 10)
+    private BigDecimal originY; // 출발지 경도
+
+    @Column(name = "destination_x", precision = 15, scale = 10)
+    private BigDecimal destinationX; // 도착지 위도
+
+    @Column(name = "destination_y", precision = 15, scale = 10)
+    private BigDecimal destinationY; // 도착지 경도
+
+    @Column(name = "distance", precision = 10, scale = 2)
+    private BigDecimal distance; // 배송 거리 (km)
+
+    @Column(name = "simple_price", precision = 10, scale = 2)
+    private BigDecimal simplePrice; // 기본 요금 (택시 요금)
+
+    @Column(name = "weight", precision = 10, scale = 2)
+    private BigDecimal weight; // 화물 무게
+
+    @Column(name = "size", precision = 10, scale = 2)
+    private BigDecimal size; // 화물 크기
+
+    @Column(name = "toll_fare", precision = 10, scale = 2)
+    private BigDecimal tollFare; // 톨게이트 비용
+
+    @Column(name = "fuel_price", precision = 10, scale = 2)
+    private BigDecimal fuelPrice; // 연료 비용
+
+    @Column(name = "route_path", columnDefinition = "TEXT")
+    private String routePath; // 이동 경로 (JSON 저장)
+
     @Column(name = "created_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;  // 생성 일시
 }

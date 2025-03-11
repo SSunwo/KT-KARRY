@@ -22,10 +22,10 @@ public class KakaoAddressService {
 
     public BigDecimal[] getCoordinates(String address) {
         try {
-            // ✅ 1. Feign Client를 사용하여 API 호출
+            // 1. Feign Client를 사용하여 API 호출
             ResponseEntity<Map> response = kakaoAddressClient.getCoordinates(address, kakaoApiKey);
 
-            // ✅ 2. 응답 데이터 확인
+            // 2. 응답 데이터 확인
             System.out.println("📌 API 응답: " + response.getBody());
 
             if (response.getBody() == null || !response.getBody().containsKey("documents")) {
@@ -33,7 +33,7 @@ public class KakaoAddressService {
                 return new BigDecimal[]{BigDecimal.ZERO, BigDecimal.ZERO};
             }
 
-            // ✅ 3. 좌표 추출
+            // 3. 좌표 추출
             List<Map<String, Object>> documents = (List<Map<String, Object>>) response.getBody().get("documents");
 
             if (documents.isEmpty()) {

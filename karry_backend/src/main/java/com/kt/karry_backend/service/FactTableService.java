@@ -6,7 +6,6 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,61 +18,54 @@ import com.kt.karry_backend.entity.FactTable;
 @RequiredArgsConstructor
 public class FactTableService {
 
-    @Autowired
-    private FactTableRepository factTableRepository;
+        @Autowired
+        private FactTableRepository factTableRepository;
 
-    @Transactional
-    public void migrateDataToFactTable() {
-        factTableRepository.migrateFactTable();
-    }
-
-    public Map<String, Object> getDashboardData(String userId) {
-        
-        List<FactTable> userFacts;
-        
-        boolean isCarrier = factTableRepository.existsByAcceptedBy(userId);
-        boolean isShipper = factTableRepository.existsByUserId(userId);
-        
-        if (isCarrier) {
-                userFacts = factTableRepository.findByAcceptedBy(userId);
-        } else {
-                userFacts = factTableRepository.findByUserId(userId);
+        @Transactional
+        public void migrateDataToFactTable() {
+                factTableRepository.deleteDuplicateFactRecords();
+                factTableRepository.migrateFactTable();
         }
 
-        List<FactTable> carrierShipments = isCarrier ? userFacts : List.of(); 
-        List<FactTable> shipperShipments = isShipper ? userFacts : List.of();
+        public Map<String, Object> getDashboardData(String userId) {
 
-        // List<FactTable> carrierShipments = userFacts.stream()
-        //         .filter(fact -> userId.equals(fact.getAcceptedBy()))
-        //         .collect(Collectors.toList());
+                List<FactTable> userFacts;
 
-        // List<FactTable> shipperShipments = userFacts.stream()
-        //         .filter(fact -> "shipper".equals(fact.getUserRole()))
-        //         .collect(Collectors.toList());
+                boolean isCarrier = factTableRepository.existsByAcceptedBy(userId);
+                boolean isShipper = factTableRepository.existsByUserId(userId);
 
-        BigDecimal unsettledAmount = carrierShipments.stream()
-                .filter(fact -> Boolean.FALSE.equals(fact.getAdjustmentStatus()))
-                .map(fact -> fact.getAmount() != null ? fact.getAmount() : BigDecimal.ZERO) 
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+                if (isCarrier) {
+                        userFacts = factTableRepository.findByAcceptedBy(userId);
+                } else {
+                        userFacts = factTableRepository.findByUserId(userId);
+                }
 
-        BigDecimal settledAmount = carrierShipments.stream()
-                .filter(fact -> Boolean.TRUE.equals(fact.getAdjustmentStatus()))
-                .map(fact -> fact.getAmount() != null ? fact.getAmount() : BigDecimal.ZERO)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+                List<FactTable> carrierShipments = isCarrier ? userFacts : List.of(); 
+                List<FactTable> shipperShipments = isShipper ? userFacts : List.of();
 
-        BigDecimal totalPayment = shipperShipments.stream()
-                .map(fact -> fact.getAmount() != null ? fact.getAmount() : BigDecimal.ZERO) 
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+                BigDecimal unsettledAmount = carrierShipments.stream()
+                        .filter(fact -> Boolean.FALSE.equals(fact.getAdjustmentStatus()))
+                        .map(fact -> fact.getAmount() != null ? fact.getAmount() : BigDecimal.ZERO) 
+                        .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        Map<String, Object> result = new HashMap<>();
-        result.put("carrierShipments", carrierShipments);
-        result.put("unsettledAmount", unsettledAmount);
-        result.put("settledAmount", settledAmount);
-        result.put("shipperShipments", shipperShipments);
-        result.put("totalPayment", totalPayment);
+                BigDecimal settledAmount = carrierShipments.stream()
+                        .filter(fact -> Boolean.TRUE.equals(fact.getAdjustmentStatus()))
+                        .map(fact -> fact.getAmount() != null ? fact.getAmount() : BigDecimal.ZERO)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        System.out.println("🚀 Carrier Shipments for user " + userId + ": " + carrierShipments);
+                BigDecimal totalPayment = shipperShipments.stream()
+                        .map(fact -> fact.getAmount() != null ? fact.getAmount() : BigDecimal.ZERO) 
+                        .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        return result;
+                Map<String, Object> result = new HashMap<>();
+                result.put("carrierShipments", carrierShipments);
+                result.put("unsettledAmount", unsettledAmount);
+                result.put("settledAmount", settledAmount);
+                result.put("shipperShipments", shipperShipments);
+                result.put("totalPayment", totalPayment);
+
+                System.out.println("🚀 Carrier Shipments for user " + userId + ": " + carrierShipments);
+
+                return result;
         }
 }
