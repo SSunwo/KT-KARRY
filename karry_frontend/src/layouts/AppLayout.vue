@@ -165,7 +165,7 @@
                 > -->
               </router-link>
             </li>
-            <li v-if="isAuth">
+            <li v-if="isAuth && isShipper">
               <router-link
                 to="/shipment/register"
                 class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
@@ -190,7 +190,7 @@
                 <span class="flex-1 ml-3 whitespace-nowrap">Register Shipment</span>
               </router-link>
             </li>
-            <li v-if="isAuth">
+            <li v-if="isAuth && isCarrier">
               <router-link
                 to="/matching"
                 class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
@@ -296,6 +296,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 import SignOutButton from '@/components/SignOutButton.vue'
@@ -310,6 +311,21 @@ export default {
       isUserMenuOpen: false,
     }
   },
+
+  computed: {
+    ...mapGetters({
+      userRole: 'getUserRole',
+    }),
+
+    isCarrier() {
+      return this.userRole === 'carrier'
+    },
+
+    isShipper() {
+      return this.userRole === 'shipper'
+    },
+  },
+
   setup() {
     const store = useStore()
 

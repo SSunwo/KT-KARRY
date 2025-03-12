@@ -41,7 +41,7 @@ public class PriceLogService {
         BigDecimal fuelPrice = new BigDecimal(naverRouteData.get("fuelPrice").toString());
         String routePathJson = naverRouteData.get("routePath").toString(); // JSON 형식의 경로 정보
 
-        // 요금 계산 (예제)
+        // 요금 계산 
         BigDecimal weightCharge = shipment.getWeight().multiply(BigDecimal.valueOf(300)); // 1kg당 300원
         BigDecimal sizeCharge = shipment.getSize().multiply(BigDecimal.valueOf(200)); // 1m³당 200원
         BigDecimal calculatedPrice = taxiFare.add(weightCharge).add(sizeCharge);
