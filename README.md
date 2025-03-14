@@ -62,20 +62,18 @@ KARRY는 화주(Shipper)와 차주(Carrier) 간의 원활한 협력을 지원하
 - AI 모델링: 김선우
 - DB 설계: 김선우
 
+---
 
 ## 📥 설치 및 실행 방법
 
-Project setup
-<pre><code>{npm install}</code></pre>
+### Project setup
+<pre><code>npm install</code></pre>
 
-Compiles and hot-reloads for development
-npm run serve
-Compiles and minifies for production
-npm run build
-Lints and fixes files
-npm run lint
+### Compiles and hot-reloads for development
+<pre><code>npm run serve</code></pre>
 
----
+### Compiles and minifies for production
+<pre><code>npm run build</code></pre>
 
-
-추후 업데이트
+### Lints and fixes files
+<pre><code>npm run lint</code></pre>
