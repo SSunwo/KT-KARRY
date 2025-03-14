@@ -56,11 +56,11 @@ KARRY는 화주(Shipper)와 차주(Carrier) 간의 원활한 협력을 지원하
 
 ---
 
-🏆 팀 및 기여자
-	•	Backend 개발: 김선우
-	•	Frontend 개발: 김선우
-	•	AI 모델링: 김선우
-	•	DB 설계: 김선우
+## 🏆 팀 및 기여자
+- Backend 개발: 김선우
+- Frontend 개발: 김선우
+- AI 모델링: 김선우
+- DB 설계: 김선우
 
 ---
 
