@@ -15,7 +15,7 @@ KARRY는 화주(Shipper)와 차주(Carrier) 간의 원활한 협력을 지원하
 - TailwindCSS + Flowbite (UI 디자인)
 
 ### **Backend**
-- Spring Boot 3.3.9
+- Spring Boot 3.3.9 (JPA)
 - PostgreSQL (Database)
 - FastAPI (AI 모델 배포)
 - OpenAI API (배차 추천)
