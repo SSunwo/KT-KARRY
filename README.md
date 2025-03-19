@@ -45,7 +45,10 @@ KARRY는 화주(Shipper)와 차주(Carrier) 간의 원활한 협력을 지원하
 - 기존 단순 거리 기반 매칭에서 벗어나, **차주의 운송 패턴 및 신뢰도**를 분석하여 최적 배차 추천
 - OpenAI API를 활용하여 **운송 요청에 맞는 최적의 차주 추천**
 - 배차 속도 증가 및 효율적인 운송 프로세스 구축
-<img width="295" alt="image" src="https://github.com/user-attachments/assets/fe98e526-1bc6-43e0-be04-f79854565534" />
+
+<p align="center">
+  <img width="700" alt="image" src="https://github.com/user-attachments/assets/fe98e526-1bc6-43e0-be04-f79854565534" />
+</p>
 
 ### 2️⃣ **AI 기반 요금 예측 (XGBoost)**
 - 기존 정적인 요금 모델을 개선하여 **거리, 무게, 크기, 연료비, 톨게이트 비용** 등의 요소를 고려한 **동적 요금 산정**
