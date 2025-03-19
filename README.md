@@ -5,7 +5,9 @@
 KARRY는 화주(Shipper)와 차주(Carrier) 간의 원활한 협력을 지원하는 **AI 기반 물류 매칭 플랫폼**입니다.  
 배차 최적화, 요금 예측, 데이터 정합성 향상 등을 목표로 하며, AI와 데이터 아키텍처 최적화를 통해 효율적인 물류 서비스를 제공합니다.
 
-<img width="600" alt="image" src="https://github.com/user-attachments/assets/f0e41292-d9ba-47f6-bc77-65f022dab6f0" />
+<p align="center">
+  <img width="700" alt="image" src="https://github.com/user-attachments/assets/f0e41292-d9ba-47f6-bc77-65f022dab6f0" />
+</p>
 
 ---
 
@@ -30,7 +32,10 @@ KARRY는 화주(Shipper)와 차주(Carrier) 간의 원활한 협력을 지원하
 - 로컬 실행
 - API 테스트: Postman
 - 사용 API : 다음 우편번호 API, 카카오 로컬 API, 네이버 지도 API
-<img width="600" alt="image" src="https://github.com/user-attachments/assets/d8ae7fc3-e1bd-4cc3-93ed-0561da8447ab" />
+
+<p align="center">
+  <img width="700" alt="image" src="https://github.com/user-attachments/assets/d8ae7fc3-e1bd-4cc3-93ed-0561da8447ab" />
+</p>
 
 ---
 
@@ -49,7 +54,12 @@ KARRY는 화주(Shipper)와 차주(Carrier) 간의 원활한 협력을 지원하
 ### 3️⃣ **DAG 기반 Fact Table (데이터 정합성 최적화)**
 - **실시간 대량 트랜잭션 최적화**를 위한 **DAG(Directed Acyclic Graph) 기반 Fact Table** 적용
 - 실시간 운송 현황 추적 및 **Batch 업데이트 대시보드** 구성
-<img width="600" alt="image" src="https://github.com/user-attachments/assets/fcb1c86f-13c4-4259-b6ea-df1386e9ba49" />
+
+<p align="center">
+  <img width="700" alt="image" src="https://github.com/user-attachments/assets/fcb1c86f-13c4-4259-b6ea-df1386e9ba49" />
+</p>
+
+
 
 
 ### 4️⃣ **배송 현황 관리 및 정산 시스템**
